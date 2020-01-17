@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.stream.Collectors;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -17,6 +19,7 @@ import com.google.gson.JsonParser;
 import com.kaamiljasani.templatemakerfabric.versions.FabricApiVersion;
 import com.kaamiljasani.templatemakerfabric.versions.IndexedFabricApiVersion;
 import com.kaamiljasani.templatemakerfabric.versions.MinecraftVersion;
+import com.kaamiljasani.templatemakerfabric.versions.YarnVersion;
 
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
@@ -26,6 +29,8 @@ public class TemplateMakerFabric {
     private ArrayList<MinecraftVersion> mcVersions;
     private ArrayList<FabricApiVersion> apiVersions;
     private ArrayList<IndexedFabricApiVersion> sortedApiVersions;
+    private ArrayList<YarnVersion> yarnVersions;
+    private HashMap<String, ArrayList<YarnVersion>> filteredYarnVersions = new HashMap<>();
 
     public ArrayList<MinecraftVersion> getMinecraftVersions() throws IOException{
         if(mcVersions != null)
@@ -63,13 +68,41 @@ public class TemplateMakerFabric {
             getMinecraftVersions();
         if(apiVersions == null)
             getFabricApiVersions();
-        ArrayList<IndexedFabricApiVersion> sortedApiVersions = new ArrayList<>(apiVersions.size());
-        apiVersions.stream()
+        ArrayList<IndexedFabricApiVersion> sortedApiVersions = apiVersions.stream()
                 .map(apiVersion -> new IndexedFabricApiVersion(apiVersion, mcVersions))
                 .sorted()
-                .forEachOrdered(version -> sortedApiVersions.add(version));
+                .collect(Collectors.toCollection(ArrayList::new));
         this.sortedApiVersions = sortedApiVersions;
         return sortedApiVersions;
+    }
+
+    public ArrayList<YarnVersion> getYarnVersions() throws IOException{
+        if(yarnVersions != null)
+            return yarnVersions;
+        JsonArray yarnVersionsData = jsonFromUrl("https://meta.fabricmc.net/v2/versions/yarn").getAsJsonArray();
+        ArrayList<YarnVersion> yarnVersions = new ArrayList<>(yarnVersionsData.size());
+        for(int i = 0; i < yarnVersionsData.size(); i++){
+            JsonObject version = yarnVersionsData.get(i).getAsJsonObject();
+            String mcVersion = version.get("gameVersion").getAsString();
+            int build = version.get("build").getAsInt();
+            String maven = version.get("maven").getAsString();
+            String name = version.get("version").getAsString();
+            yarnVersions.add(new YarnVersion(name, maven, mcVersion, build));
+        }
+        this.yarnVersions = yarnVersions;
+        return yarnVersions;
+    }
+
+    public ArrayList<YarnVersion> getFilteredYarnVersions(String mcVersion) throws IOException{
+        if(filteredYarnVersions.containsKey(mcVersion))
+            return filteredYarnVersions.get(mcVersion);
+        if(yarnVersions == null)
+            getYarnVersions();
+        ArrayList<YarnVersion> filtered = yarnVersions.stream()
+                .filter(version->version.mcVersion.equals(mcVersion))
+                .collect(Collectors.toCollection(ArrayList::new));
+        filteredYarnVersions.put(mcVersion, filtered);
+        return filtered;
     }
 
     public static Document xmlFromUrl(String urlString) throws IOException, SAXException, ParserConfigurationException {
