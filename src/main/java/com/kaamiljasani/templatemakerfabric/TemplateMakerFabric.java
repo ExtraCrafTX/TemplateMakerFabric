@@ -19,6 +19,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.kaamiljasani.templatemakerfabric.versions.FabricApiVersion;
 import com.kaamiljasani.templatemakerfabric.versions.IndexedFabricApiVersion;
+import com.kaamiljasani.templatemakerfabric.versions.LoaderVersion;
 import com.kaamiljasani.templatemakerfabric.versions.MinecraftVersion;
 import com.kaamiljasani.templatemakerfabric.versions.YarnVersion;
 
@@ -34,6 +35,7 @@ public class TemplateMakerFabric {
     private ArrayList<YarnVersion> yarnVersions;
     private HashMap<String, ArrayList<YarnVersion>> filteredYarnVersions = new HashMap<>();
     private ArrayList<String> loomVersions;
+    private ArrayList<LoaderVersion> loaderVersions;
 
     public ArrayList<MinecraftVersion> getMinecraftVersions() throws IOException{
         if(mcVersions != null)
@@ -120,6 +122,22 @@ public class TemplateMakerFabric {
         Collections.reverse(loomVersions);
         this.loomVersions = loomVersions;
         return loomVersions;
+    }
+
+    public ArrayList<LoaderVersion> getLoaderVersions() throws IOException{
+        if(loaderVersions != null)
+            return loaderVersions;
+        JsonArray loaderVersionsData = jsonFromUrl("https://meta.fabricmc.net/v2/versions/loader").getAsJsonArray();
+        ArrayList<LoaderVersion> loaderVersions = new ArrayList<>(loaderVersionsData.size());
+        for(int i = 0; i < loaderVersionsData.size(); i++){
+            JsonObject version = loaderVersionsData.get(i).getAsJsonObject();
+            int build = version.get("build").getAsInt();
+            String maven = version.get("maven").getAsString();
+            String name = version.get("version").getAsString();
+            loaderVersions.add(new LoaderVersion(name, maven, build));
+        }
+        this.loaderVersions = loaderVersions;
+        return loaderVersions;
     }
 
     public static Document xmlFromUrl(String urlString) throws IOException, SAXException, ParserConfigurationException {
