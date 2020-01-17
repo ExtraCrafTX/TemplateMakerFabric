@@ -1,4 +1,4 @@
-package com.kaamiljasani.templatemakerfabric.versions;
+package com.kaamiljasani.templatemakerfabric.data.versions;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

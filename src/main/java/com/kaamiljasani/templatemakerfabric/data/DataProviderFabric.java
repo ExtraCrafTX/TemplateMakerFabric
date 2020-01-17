@@ -1,4 +1,4 @@
-package com.kaamiljasani.templatemakerfabric;
+package com.kaamiljasani.templatemakerfabric.data;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,17 +17,17 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.kaamiljasani.templatemakerfabric.versions.FabricApiVersion;
-import com.kaamiljasani.templatemakerfabric.versions.IndexedFabricApiVersion;
-import com.kaamiljasani.templatemakerfabric.versions.LoaderVersion;
-import com.kaamiljasani.templatemakerfabric.versions.MinecraftVersion;
-import com.kaamiljasani.templatemakerfabric.versions.YarnVersion;
+import com.kaamiljasani.templatemakerfabric.data.versions.FabricApiVersion;
+import com.kaamiljasani.templatemakerfabric.data.versions.IndexedFabricApiVersion;
+import com.kaamiljasani.templatemakerfabric.data.versions.LoaderVersion;
+import com.kaamiljasani.templatemakerfabric.data.versions.MinecraftVersion;
+import com.kaamiljasani.templatemakerfabric.data.versions.YarnVersion;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-public class TemplateMakerFabric {
+public class DataProviderFabric {
 
     private ArrayList<MinecraftVersion> mcVersions;
     private ArrayList<FabricApiVersion> apiVersions;

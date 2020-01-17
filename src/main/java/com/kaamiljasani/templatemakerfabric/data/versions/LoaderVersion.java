@@ -1,4 +1,4 @@
-package com.kaamiljasani.templatemakerfabric.versions;
+package com.kaamiljasani.templatemakerfabric.data.versions;
 
 public class LoaderVersion{
     public final String name;
