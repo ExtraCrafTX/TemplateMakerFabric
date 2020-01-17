@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
@@ -22,6 +23,7 @@ import com.kaamiljasani.templatemakerfabric.versions.MinecraftVersion;
 import com.kaamiljasani.templatemakerfabric.versions.YarnVersion;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public class TemplateMakerFabric {
@@ -31,6 +33,7 @@ public class TemplateMakerFabric {
     private ArrayList<IndexedFabricApiVersion> sortedApiVersions;
     private ArrayList<YarnVersion> yarnVersions;
     private HashMap<String, ArrayList<YarnVersion>> filteredYarnVersions = new HashMap<>();
+    private ArrayList<String> loomVersions;
 
     public ArrayList<MinecraftVersion> getMinecraftVersions() throws IOException{
         if(mcVersions != null)
@@ -103,6 +106,20 @@ public class TemplateMakerFabric {
                 .collect(Collectors.toCollection(ArrayList::new));
         filteredYarnVersions.put(mcVersion, filtered);
         return filtered;
+    }
+
+    public ArrayList<String> getLoomVersions() throws IOException, SAXException, ParserConfigurationException {
+        if(loomVersions != null)
+            return loomVersions;
+        Document loomData = xmlFromUrl("https://maven.fabricmc.net/net/fabricmc/fabric-loom/maven-metadata.xml");
+        NodeList loomVersionsData = loomData.getElementsByTagName("version");
+        ArrayList<String> loomVersions = new ArrayList<>(loomVersionsData.getLength());
+        for(int i = 0; i < loomVersionsData.getLength(); i++){
+            loomVersions.add(loomVersionsData.item(i).getTextContent());
+        }
+        Collections.reverse(loomVersions);
+        this.loomVersions = loomVersions;
+        return loomVersions;
     }
 
     public static Document xmlFromUrl(String urlString) throws IOException, SAXException, ParserConfigurationException {
