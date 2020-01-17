@@ -14,6 +14,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.kaamiljasani.templatemakerfabric.versions.FabricApiVersion;
+import com.kaamiljasani.templatemakerfabric.versions.IndexedFabricApiVersion;
 import com.kaamiljasani.templatemakerfabric.versions.MinecraftVersion;
 
 import org.w3c.dom.Document;
@@ -22,6 +24,8 @@ import org.xml.sax.SAXException;
 public class TemplateMakerFabric {
 
     private ArrayList<MinecraftVersion> mcVersions;
+    private ArrayList<FabricApiVersion> apiVersions;
+    private ArrayList<IndexedFabricApiVersion> sortedApiVersions;
 
     public ArrayList<MinecraftVersion> getMinecraftVersions() throws IOException{
         if(mcVersions != null)
@@ -36,6 +40,36 @@ public class TemplateMakerFabric {
         }
         this.mcVersions = mcVersions;
         return mcVersions;
+    }
+
+    public ArrayList<FabricApiVersion> getFabricApiVersions() throws IOException{
+        if(apiVersions != null)
+            return apiVersions;
+        JsonArray apiVersionsData = jsonFromUrl("https://addons-ecs.forgesvc.net/api/v2/addon/306612/files").getAsJsonArray();
+        ArrayList<FabricApiVersion> apiVersions = new ArrayList<>();
+        for(int i = 0; i < apiVersionsData.size(); i++){
+            JsonObject versionData = apiVersionsData.get(i).getAsJsonObject();
+            String name = versionData.get("displayName").getAsString();
+            apiVersions.add(new FabricApiVersion(name));
+        }
+        this.apiVersions = apiVersions;
+        return apiVersions;
+    }
+
+    public ArrayList<IndexedFabricApiVersion> getSortedFabricApiVersions() throws IOException{
+        if(sortedApiVersions != null)
+            return sortedApiVersions;
+        if(mcVersions == null)
+            getMinecraftVersions();
+        if(apiVersions == null)
+            getFabricApiVersions();
+        ArrayList<IndexedFabricApiVersion> sortedApiVersions = new ArrayList<>(apiVersions.size());
+        apiVersions.stream()
+                .map(apiVersion -> new IndexedFabricApiVersion(apiVersion, mcVersions))
+                .sorted()
+                .forEachOrdered(version -> sortedApiVersions.add(version));
+        this.sortedApiVersions = sortedApiVersions;
+        return sortedApiVersions;
     }
 
     public static Document xmlFromUrl(String urlString) throws IOException, SAXException, ParserConfigurationException {
