@@ -27,7 +27,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-public class DataProviderFabric {
+public class DataProvider {
 
     private ArrayList<MinecraftVersion> mcVersions;
     private ArrayList<FabricApiVersion> apiVersions;
