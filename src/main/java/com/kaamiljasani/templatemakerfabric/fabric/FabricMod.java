@@ -11,26 +11,26 @@ import com.kaamiljasani.templatemakerfabric.data.holders.YarnVersion;
 import static com.kaamiljasani.templatemakerfabric.util.Util.*;
 
 public class FabricMod {
-    private MinecraftVersion mcVersion;
-    private String modName;
-    private String modId;
-    private String modDescription;
-    private String modVersion;
-    private String author;
-    private URL homepage;
-    private URL sources;
-    private License license;
-    private String nameOnLicense;
-    private String[] mainPackage;
-    private String mainClass;
-    private boolean mixin;
-    private boolean fabricApi;
-    private FabricApiVersion apiVersion;
-    private YarnVersion yarnVersion;
-    private String loomVersion;
-    private LoaderVersion loaderVersion;
-    private String mavenGroup;
-    private String archiveName;
+    private final MinecraftVersion mcVersion;
+    private final String modName;
+    private final String modId;
+    private final String modDescription;
+    private final String modVersion;
+    private final String author;
+    private final URL homepage;
+    private final URL sources;
+    private final License license;
+    private final String nameOnLicense;
+    private final String[] mainPackage;
+    private final String mainClass;
+    private final boolean mixin;
+    private final boolean fabricApi;
+    private final FabricApiVersion apiVersion;
+    private final YarnVersion yarnVersion;
+    private final String loomVersion;
+    private final LoaderVersion loaderVersion;
+    private final String mavenGroup;
+    private final String archiveName;
 
     public FabricMod(MinecraftVersion mcVersion, String modName, String modId, String modDescription, String modVersion,
             String author, URL homepage, URL sources, License license, String nameOnLicense, String mainPackage,
