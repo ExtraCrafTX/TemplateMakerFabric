@@ -1,4 +1,4 @@
-package com.kaamiljasani.templatemakerfabric.data.versions;
+package com.kaamiljasani.templatemakerfabric.data.holders;
 
 public class MinecraftVersion{
     public final int index;

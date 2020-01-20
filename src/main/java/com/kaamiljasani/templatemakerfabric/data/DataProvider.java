@@ -17,17 +17,32 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.kaamiljasani.templatemakerfabric.data.versions.FabricApiVersion;
-import com.kaamiljasani.templatemakerfabric.data.versions.IndexedFabricApiVersion;
-import com.kaamiljasani.templatemakerfabric.data.versions.LoaderVersion;
-import com.kaamiljasani.templatemakerfabric.data.versions.MinecraftVersion;
-import com.kaamiljasani.templatemakerfabric.data.versions.YarnVersion;
+import com.kaamiljasani.templatemakerfabric.data.holders.FabricApiVersion;
+import com.kaamiljasani.templatemakerfabric.data.holders.IndexedFabricApiVersion;
+import com.kaamiljasani.templatemakerfabric.data.holders.License;
+import com.kaamiljasani.templatemakerfabric.data.holders.LoaderVersion;
+import com.kaamiljasani.templatemakerfabric.data.holders.MinecraftVersion;
+import com.kaamiljasani.templatemakerfabric.data.holders.YarnVersion;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public class DataProvider {
+
+    public static final License[] LICENSES = {
+        new License("No License (Copyrighted)", "All-Rights-Reserved"),
+        new License("MIT", "MIT"),
+        new License("Internet Systems Consortium (ISC) License", "ISC"),
+        new License("BSD 2-Clause (FreeBSD) License", "BSD-2-Clause-FreeBSD"),
+        new License("BSD 3-Clause (NewBSD) License", "BSD-3-Clause"),
+        new License("Apache 2.0", "Apache-2.0"),
+        new License("Mozilla Public License 2.0", "MPL-2.0"),
+        new License("GNU LGPL 3.0", "LGPL-3.0"),
+        new License("GNU GPL 3.0", "GPL-3.0"),
+        new License("GNU AGPL 3.0", "AGPL-3.0"),
+        new License("Unlicense", "unlicense")
+    };
 
     private ArrayList<MinecraftVersion> mcVersions;
     private ArrayList<FabricApiVersion> apiVersions;
@@ -138,6 +153,10 @@ public class DataProvider {
         }
         this.loaderVersions = loaderVersions;
         return loaderVersions;
+    }
+
+    public License[] getSupportedLicenses(){
+        return LICENSES;
     }
 
     public static Document xmlFromUrl(String urlString) throws IOException, SAXException, ParserConfigurationException {

@@ -2,10 +2,10 @@ package com.kaamiljasani.templatemakerfabric.fabric;
 
 import java.net.URL;
 
-import com.kaamiljasani.templatemakerfabric.data.versions.FabricApiVersion;
-import com.kaamiljasani.templatemakerfabric.data.versions.LoaderVersion;
-import com.kaamiljasani.templatemakerfabric.data.versions.MinecraftVersion;
-import com.kaamiljasani.templatemakerfabric.data.versions.YarnVersion;
+import com.kaamiljasani.templatemakerfabric.data.holders.FabricApiVersion;
+import com.kaamiljasani.templatemakerfabric.data.holders.LoaderVersion;
+import com.kaamiljasani.templatemakerfabric.data.holders.MinecraftVersion;
+import com.kaamiljasani.templatemakerfabric.data.holders.YarnVersion;
 
 import static com.kaamiljasani.templatemakerfabric.util.Util.*;
 
@@ -56,7 +56,7 @@ public class FabricMod {
         this.loomVersion = ensureNotEmpty(loomVersion, "Loom version");
         this.loaderVersion = ensureExists(loaderVersion, "Loader version");
         this.mavenGroup = String.join(".", ensureValidPackage(mavenGroup, "Maven group"));
-        this.archiveName = ensureValidClass(archiveName, "Archive base name");
+        this.archiveName = ensureNotEmpty(archiveName, "Archive base name");
     }
 
     /**
