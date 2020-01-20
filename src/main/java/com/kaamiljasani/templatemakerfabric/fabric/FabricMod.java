@@ -3,6 +3,7 @@ package com.kaamiljasani.templatemakerfabric.fabric;
 import java.net.URL;
 
 import com.kaamiljasani.templatemakerfabric.data.holders.FabricApiVersion;
+import com.kaamiljasani.templatemakerfabric.data.holders.License;
 import com.kaamiljasani.templatemakerfabric.data.holders.LoaderVersion;
 import com.kaamiljasani.templatemakerfabric.data.holders.MinecraftVersion;
 import com.kaamiljasani.templatemakerfabric.data.holders.YarnVersion;
@@ -18,7 +19,7 @@ public class FabricMod {
     private String author;
     private URL homepage;
     private URL sources;
-    private String license;
+    private License license;
     private String nameOnLicense;
     private String[] mainPackage;
     private String mainClass;
@@ -32,7 +33,7 @@ public class FabricMod {
     private String archiveName;
 
     public FabricMod(MinecraftVersion mcVersion, String modName, String modId, String modDescription, String modVersion,
-            String author, URL homepage, URL sources, String license, String nameOnLicense, String mainPackage,
+            String author, URL homepage, URL sources, License license, String nameOnLicense, String mainPackage,
             String mainClass, boolean mixin, boolean fabricApi, FabricApiVersion apiVersion, YarnVersion yarnVersion,
             String loomVersion, LoaderVersion loaderVersion, String mavenGroup, String archiveName) {
         this.mcVersion = ensureExists(mcVersion, "Minecraft version");
@@ -43,7 +44,7 @@ public class FabricMod {
         this.author = ensureNotEmpty(author, "Author");
         this.homepage = homepage;
         this.sources = sources;
-        this.license = ensureNotEmpty(license, "License");
+        this.license = ensureExists(license, "License");
         this.nameOnLicense = nameOnLicense;
         this.mainPackage = ensureValidPackage(mainPackage, "Main package");
         this.mainClass = ensureValidClass(mainClass, "Main class");
@@ -118,7 +119,7 @@ public class FabricMod {
     /**
      * @return the license
      */
-    public String getLicense() {
+    public License getLicense() {
         return license;
     }
 

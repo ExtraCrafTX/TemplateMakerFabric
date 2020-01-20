@@ -35,4 +35,9 @@ public class FabricApiVersion{
         mcVersion = apiVersion.mcVersion;
         build = apiVersion.build;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

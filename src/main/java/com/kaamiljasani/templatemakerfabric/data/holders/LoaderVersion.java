@@ -10,4 +10,9 @@ public class LoaderVersion{
         this.maven = maven;
         this.build = build;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

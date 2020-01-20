@@ -10,4 +10,9 @@ public class MinecraftVersion{
         this.name = name;
         this.stable = stable;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

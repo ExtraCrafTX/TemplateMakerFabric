@@ -8,4 +8,16 @@ public class License{
         this.name = name;
         this.value = value;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+
+    /**
+     * @return the value
+     */
+    public String getValue() {
+        return value;
+    }
 }

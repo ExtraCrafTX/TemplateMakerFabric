@@ -12,4 +12,9 @@ public class YarnVersion{
         this.mcVersion = mcVersion;
         this.build = build;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
