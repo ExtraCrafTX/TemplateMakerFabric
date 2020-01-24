@@ -1,4 +1,4 @@
-package com.kaamiljasani.templatemakerfabric.data.holders;
+package com.extracraftx.minecraft.templatemakerfabric.data.holders;
 
 import java.util.Collection;
 

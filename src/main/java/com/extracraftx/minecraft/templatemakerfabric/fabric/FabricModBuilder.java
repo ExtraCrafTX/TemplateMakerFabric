@@ -1,13 +1,8 @@
-package com.kaamiljasani.templatemakerfabric.fabric;
+package com.extracraftx.minecraft.templatemakerfabric.fabric;
 
 import java.net.URL;
 
-import com.kaamiljasani.templatemakerfabric.data.holders.FabricApiVersion;
-import com.kaamiljasani.templatemakerfabric.data.holders.License;
-import com.kaamiljasani.templatemakerfabric.data.holders.LoaderVersion;
-import com.kaamiljasani.templatemakerfabric.data.holders.LoomVersion;
-import com.kaamiljasani.templatemakerfabric.data.holders.MinecraftVersion;
-import com.kaamiljasani.templatemakerfabric.data.holders.YarnVersion;
+import com.extracraftx.minecraft.templatemakerfabric.data.holders.*;
 
 public class FabricModBuilder{
     private MinecraftVersion mcVersion;

@@ -1,4 +1,4 @@
-package com.kaamiljasani.templatemakerfabric.data;
+package com.extracraftx.minecraft.templatemakerfabric.data;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,13 +16,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.kaamiljasani.templatemakerfabric.data.holders.FabricApiVersion;
-import com.kaamiljasani.templatemakerfabric.data.holders.IndexedFabricApiVersion;
-import com.kaamiljasani.templatemakerfabric.data.holders.License;
-import com.kaamiljasani.templatemakerfabric.data.holders.LoaderVersion;
-import com.kaamiljasani.templatemakerfabric.data.holders.LoomVersion;
-import com.kaamiljasani.templatemakerfabric.data.holders.MinecraftVersion;
-import com.kaamiljasani.templatemakerfabric.data.holders.YarnVersion;
+import com.extracraftx.minecraft.templatemakerfabric.data.holders.*;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;

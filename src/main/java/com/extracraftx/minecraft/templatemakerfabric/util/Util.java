@@ -1,4 +1,4 @@
-package com.kaamiljasani.templatemakerfabric.util;
+package com.extracraftx.minecraft.templatemakerfabric.util;
 
 import java.util.regex.Pattern;
 
