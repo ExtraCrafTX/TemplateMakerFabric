@@ -41,6 +41,8 @@ public class FabricMod {
         this.homepage = homepage;
         this.sources = sources;
         this.license = ensureExists(license, "License");
+        if(license.requiresName)
+            ensureNotEmpty(nameOnLicense, "Name on license");
         this.nameOnLicense = nameOnLicense;
         this.mainPackage = ensureValidPackage(mainPackage, "Main package");
         this.mainClass = ensureValidClass(mainClass, "Main class");
