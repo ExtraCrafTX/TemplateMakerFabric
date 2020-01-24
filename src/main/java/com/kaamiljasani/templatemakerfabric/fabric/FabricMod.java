@@ -5,6 +5,7 @@ import java.net.URL;
 import com.kaamiljasani.templatemakerfabric.data.holders.FabricApiVersion;
 import com.kaamiljasani.templatemakerfabric.data.holders.License;
 import com.kaamiljasani.templatemakerfabric.data.holders.LoaderVersion;
+import com.kaamiljasani.templatemakerfabric.data.holders.LoomVersion;
 import com.kaamiljasani.templatemakerfabric.data.holders.MinecraftVersion;
 import com.kaamiljasani.templatemakerfabric.data.holders.YarnVersion;
 
@@ -27,7 +28,7 @@ public class FabricMod {
     private final boolean fabricApi;
     private final FabricApiVersion apiVersion;
     private final YarnVersion yarnVersion;
-    private final String loomVersion;
+    private final LoomVersion loomVersion;
     private final LoaderVersion loaderVersion;
     private final String mavenGroup;
     private final String archiveName;
@@ -35,7 +36,7 @@ public class FabricMod {
     public FabricMod(MinecraftVersion mcVersion, String modName, String modId, String modDescription, String modVersion,
             String author, URL homepage, URL sources, License license, String nameOnLicense, String mainPackage,
             String mainClass, boolean mixin, boolean fabricApi, FabricApiVersion apiVersion, YarnVersion yarnVersion,
-            String loomVersion, LoaderVersion loaderVersion, String mavenGroup, String archiveName) {
+            LoomVersion loomVersion, LoaderVersion loaderVersion, String mavenGroup, String archiveName) {
         this.mcVersion = ensureExists(mcVersion, "Minecraft version");
         this.modName = ensureNotEmpty(modName, "Mod name");
         this.modId = ensureNotEmpty(modId, "Mod id");
@@ -54,7 +55,7 @@ public class FabricMod {
             ensureExists(apiVersion, "Api version");
         this.apiVersion = apiVersion;
         this.yarnVersion = ensureExists(yarnVersion, "Yarn mappings");
-        this.loomVersion = ensureNotEmpty(loomVersion, "Loom version");
+        this.loomVersion = ensureExists(loomVersion, "Loom version");
         this.loaderVersion = ensureExists(loaderVersion, "Loader version");
         this.mavenGroup = String.join(".", ensureValidPackage(mavenGroup, "Maven group"));
         this.archiveName = ensureNotEmpty(archiveName, "Archive base name");
@@ -175,7 +176,7 @@ public class FabricMod {
     /**
      * @return the loomVersion
      */
-    public String getLoomVersion() {
+    public LoomVersion getLoomVersion() {
         return loomVersion;
     }
 

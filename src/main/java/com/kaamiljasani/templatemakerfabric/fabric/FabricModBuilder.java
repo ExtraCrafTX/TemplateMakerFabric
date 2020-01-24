@@ -5,6 +5,7 @@ import java.net.URL;
 import com.kaamiljasani.templatemakerfabric.data.holders.FabricApiVersion;
 import com.kaamiljasani.templatemakerfabric.data.holders.License;
 import com.kaamiljasani.templatemakerfabric.data.holders.LoaderVersion;
+import com.kaamiljasani.templatemakerfabric.data.holders.LoomVersion;
 import com.kaamiljasani.templatemakerfabric.data.holders.MinecraftVersion;
 import com.kaamiljasani.templatemakerfabric.data.holders.YarnVersion;
 
@@ -25,7 +26,7 @@ public class FabricModBuilder{
     private boolean fabricApi;
     private FabricApiVersion apiVersion;
     private YarnVersion yarnVersion;
-    private String loomVersion;
+    private LoomVersion loomVersion;
     private LoaderVersion loaderVersion;
     private String mavenGroup;
     private String archiveName;
@@ -94,7 +95,7 @@ public class FabricModBuilder{
 		this.yarnVersion = yarnVersion;
 	}
 
-	public void setLoomVersion(String loomVersion) {
+	public void setLoomVersion(LoomVersion loomVersion) {
 		this.loomVersion = loomVersion;
 	}
 

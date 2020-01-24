@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
@@ -21,6 +20,7 @@ import com.kaamiljasani.templatemakerfabric.data.holders.FabricApiVersion;
 import com.kaamiljasani.templatemakerfabric.data.holders.IndexedFabricApiVersion;
 import com.kaamiljasani.templatemakerfabric.data.holders.License;
 import com.kaamiljasani.templatemakerfabric.data.holders.LoaderVersion;
+import com.kaamiljasani.templatemakerfabric.data.holders.LoomVersion;
 import com.kaamiljasani.templatemakerfabric.data.holders.MinecraftVersion;
 import com.kaamiljasani.templatemakerfabric.data.holders.YarnVersion;
 
@@ -49,7 +49,7 @@ public class DataProvider {
     private ArrayList<IndexedFabricApiVersion> sortedApiVersions;
     private ArrayList<YarnVersion> yarnVersions;
     private HashMap<String, ArrayList<YarnVersion>> filteredYarnVersions = new HashMap<>();
-    private ArrayList<String> loomVersions;
+    private ArrayList<LoomVersion> loomVersions;
     private ArrayList<LoaderVersion> loaderVersions;
 
     public ArrayList<MinecraftVersion> getMinecraftVersions() throws IOException{
@@ -125,16 +125,16 @@ public class DataProvider {
         return filtered;
     }
 
-    public ArrayList<String> getLoomVersions() throws IOException, SAXException, ParserConfigurationException {
+    public ArrayList<LoomVersion> getLoomVersions() throws IOException, SAXException, ParserConfigurationException {
         if(loomVersions != null)
             return loomVersions;
         Document loomData = xmlFromUrl("https://maven.fabricmc.net/net/fabricmc/fabric-loom/maven-metadata.xml");
         NodeList loomVersionsData = loomData.getElementsByTagName("version");
-        ArrayList<String> loomVersions = new ArrayList<>(loomVersionsData.getLength());
+        ArrayList<LoomVersion> loomVersions = new ArrayList<>(loomVersionsData.getLength());
         for(int i = 0; i < loomVersionsData.getLength(); i++){
-            loomVersions.add(loomVersionsData.item(i).getTextContent());
+            LoomVersion version = new LoomVersion(loomVersionsData.item(loomVersionsData.getLength()-i-1).getTextContent(), i);
+            loomVersions.add(version);
         }
-        Collections.reverse(loomVersions);
         this.loomVersions = loomVersions;
         return loomVersions;
     }
@@ -181,6 +181,7 @@ public class DataProvider {
             result.append(line);
             result.append("\n");
         }
+        reader.close();
         return result.toString();
     }
 
