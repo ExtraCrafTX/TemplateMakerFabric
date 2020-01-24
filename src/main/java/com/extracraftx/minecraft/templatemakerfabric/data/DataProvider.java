@@ -25,17 +25,17 @@ import org.xml.sax.SAXException;
 public class DataProvider {
 
     public static final License[] LICENSES = {
-        new License("No License (Copyrighted)", "All-Rights-Reserved"),
-        new License("MIT", "MIT"),
-        new License("Internet Systems Consortium (ISC) License", "ISC"),
-        new License("BSD 2-Clause (FreeBSD) License", "BSD-2-Clause-FreeBSD"),
-        new License("BSD 3-Clause (NewBSD) License", "BSD-3-Clause"),
-        new License("Apache 2.0", "Apache-2.0"),
-        new License("Mozilla Public License 2.0", "MPL-2.0"),
-        new License("GNU LGPL 3.0", "LGPL-3.0"),
-        new License("GNU GPL 3.0", "GPL-3.0"),
-        new License("GNU AGPL 3.0", "AGPL-3.0"),
-        new License("Unlicense", "unlicense")
+        new License("No License (Copyrighted)", "All-Rights-Reserved", true),
+        new License("MIT", "MIT", true),
+        new License("Internet Systems Consortium (ISC) License", "ISC", true),
+        new License("BSD 2-Clause (FreeBSD) License", "BSD-2-Clause-FreeBSD", true),
+        new License("BSD 3-Clause (NewBSD) License", "BSD-3-Clause", true),
+        new License("Apache 2.0", "Apache-2.0", true),
+        new License("Mozilla Public License 2.0", "MPL-2.0", true),
+        new License("GNU LGPL 3.0", "LGPL-3.0", true),
+        new License("GNU GPL 3.0", "GPL-3.0", true),
+        new License("GNU AGPL 3.0", "AGPL-3.0", true),
+        new License("Unlicense", "unlicense", true)
     };
 
     private ArrayList<MinecraftVersion> mcVersions;
