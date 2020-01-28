@@ -95,13 +95,16 @@ public class DataProvider {
             return yarnVersions;
         JsonArray yarnVersionsData = jsonFromUrl("https://meta.fabricmc.net/v2/versions/yarn").getAsJsonArray();
         ArrayList<YarnVersion> yarnVersions = new ArrayList<>(yarnVersionsData.size());
+        boolean v2 = true;
         for(int i = 0; i < yarnVersionsData.size(); i++){
             JsonObject version = yarnVersionsData.get(i).getAsJsonObject();
             String mcVersion = version.get("gameVersion").getAsString();
             int build = version.get("build").getAsInt();
+            if(v2 && mcVersion.equals("1.14.4") && build == 14)
+                v2 = false;
             String maven = version.get("maven").getAsString();
             String name = version.get("version").getAsString();
-            yarnVersions.add(new YarnVersion(name, maven, mcVersion, build));
+            yarnVersions.add(new YarnVersion(name, maven, mcVersion, build, v2));
         }
         this.yarnVersions = yarnVersions;
         return yarnVersions;
