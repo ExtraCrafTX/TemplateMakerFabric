@@ -22,4 +22,11 @@ public class License{
     public String getValue() {
         return value;
     }
+
+    /**
+     * @return whether name is required
+     */
+    public boolean getRequiresName(){
+        return requiresName;
+    }
 }

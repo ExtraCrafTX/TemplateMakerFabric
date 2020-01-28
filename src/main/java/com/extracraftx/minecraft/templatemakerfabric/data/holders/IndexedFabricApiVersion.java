@@ -33,4 +33,11 @@ public class IndexedFabricApiVersion extends FabricApiVersion implements Compara
         return mcVersionIndex - version.mcVersionIndex;
     }
 
+    /**
+     * @return the mcVersionIndex
+     */
+    public int getMcVersionIndex(){
+        return mcVersionIndex;
+    }
+
 }

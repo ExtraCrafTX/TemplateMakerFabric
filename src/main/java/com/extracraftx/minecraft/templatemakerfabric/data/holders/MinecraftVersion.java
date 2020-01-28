@@ -15,4 +15,18 @@ public class MinecraftVersion{
     public String toString() {
         return name;
     }
+
+    /**
+     * @return the index
+     */
+    public int getIndex() {
+        return index;
+    }
+
+    /**
+     * @return whether stable
+     */
+    public boolean isStable() {
+        return stable;
+    }
 }

@@ -32,17 +32,17 @@ public class FabricApiVersion{
         }else{
             throw new IllegalArgumentException("The name '" + name + "' doesn't seem to have the build number");
         }
-        Matcher oldMatcher = oldFabricPattern.matcher(fileName);
-        if(oldMatcher.matches()){
-            this.mavenLocation = "net.fabricmc:fabric";
-            this.mavenVersion = oldMatcher.group(1);
-            this.maven = mavenLocation + ":" + mavenVersion;
-            return;
-        }
         Matcher newMatcher = newFabricPattern.matcher(fileName);
         if(newMatcher.matches()){
             this.mavenLocation = "net.fabricmc.fabric-api:fabric-api";
             this.mavenVersion = newMatcher.group(1);
+            this.maven = mavenLocation + ":" + mavenVersion;
+            return;
+        }
+        Matcher oldMatcher = oldFabricPattern.matcher(fileName);
+        if(oldMatcher.matches()){
+            this.mavenLocation = "net.fabricmc:fabric";
+            this.mavenVersion = oldMatcher.group(1);
             this.maven = mavenLocation + ":" + mavenVersion;
             return;
         }
@@ -57,6 +57,48 @@ public class FabricApiVersion{
         maven = apiVersion.maven;
         mavenLocation = apiVersion.mavenLocation;
         mavenVersion = apiVersion.mavenVersion;
+    }
+
+    /**
+     * @return the displayMcVersion
+     */
+    public String getDisplayMcVersion() {
+        return displayMcVersion;
+    }
+
+    /**
+     * @return the mcVersion
+     */
+    public String getMcVersion() {
+        return mcVersion;
+    }
+
+    /**
+     * @return the build
+     */
+    public int getBuild() {
+        return build;
+    }
+
+    /**
+     * @return the maven
+     */
+    public String getMaven() {
+        return maven;
+    }
+
+    /**
+     * @return the mavenLocation
+     */
+    public String getMavenLocation() {
+        return mavenLocation;
+    }
+
+    /**
+     * @return the mavenVersion
+     */
+    public String getMavenVersion() {
+        return mavenVersion;
     }
 
     @Override

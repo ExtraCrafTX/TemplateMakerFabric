@@ -13,4 +13,11 @@ public class LoomVersion{
     public String toString() {
         return name;
     }
+
+    /**
+     * @return the index
+     */
+    public int getIndex() {
+        return index;
+    }
 }

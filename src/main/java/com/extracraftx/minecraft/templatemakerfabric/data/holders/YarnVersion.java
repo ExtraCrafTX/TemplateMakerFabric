@@ -19,4 +19,32 @@ public class YarnVersion{
     public String toString() {
         return name;
     }
+
+    /**
+     * @return the maven
+     */
+    public String getMaven() {
+        return maven;
+    }
+
+    /**
+     * @return the mcVersion
+     */
+    public String getMcVersion() {
+        return mcVersion;
+    }
+
+    /**
+     * @return the build
+     */
+    public int getBuild() {
+        return build;
+    }
+
+    /**
+     * @return whether v2 mappings are available
+     */
+    public boolean getHasV2Mappings(){
+        return hasV2Mappings;
+    }
 }

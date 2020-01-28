@@ -15,4 +15,18 @@ public class LoaderVersion{
     public String toString() {
         return name;
     }
+
+    /**
+     * @return the maven
+     */
+    public String getMaven() {
+        return maven;
+    }
+
+    /**
+     * @return the build
+     */
+    public int getBuild() {
+        return build;
+    }
 }
