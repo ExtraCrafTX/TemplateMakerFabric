@@ -69,7 +69,8 @@ public class DataProvider {
         for(int i = 0; i < apiVersionsData.size(); i++){
             JsonObject versionData = apiVersionsData.get(i).getAsJsonObject();
             String name = versionData.get("displayName").getAsString();
-            apiVersions.add(new FabricApiVersion(name));
+            String fileName = versionData.get("fileName").getAsString();
+            apiVersions.add(new FabricApiVersion(name, fileName));
         }
         this.apiVersions = apiVersions;
         return apiVersions;

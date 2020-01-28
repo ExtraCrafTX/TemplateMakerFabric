@@ -6,8 +6,8 @@ public class IndexedFabricApiVersion extends FabricApiVersion implements Compara
     
     public final int mcVersionIndex;
 
-    public IndexedFabricApiVersion(String name, Collection<MinecraftVersion> mcVersions){
-        super(name);
+    public IndexedFabricApiVersion(String name, String fileName, Collection<MinecraftVersion> mcVersions){
+        super(name, fileName);
         mcVersionIndex = getMcVersionIndex(mcVersions);
     }
 
