@@ -8,12 +8,11 @@ sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
 archivesBaseName = 'TemplateMakerFabric'
-version = '0.1.0-pre.5'
+version = '0.1.0'
 group = 'com.extracraftx.minecraft'
 
 repositories {
     // Use jcenter for resolving dependencies.
-    // You can declare any Maven/Ivy/file repository here.
     jcenter()
 }
 
