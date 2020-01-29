@@ -116,7 +116,8 @@ public class TemplateMakerFabric {
             fileStartCallback.accept(outputPath);
 
         Path output = dir.resolve(outputPath);
-        output.toFile().getParentFile().mkdirs();
+        if(output.toFile().getParentFile() != null)
+            output.toFile().getParentFile().mkdirs();
 
         Files.copy(getClass().getResourceAsStream("/" + filePath), output);
 
@@ -131,7 +132,8 @@ public class TemplateMakerFabric {
             fileStartCallback.accept(outputPath);
 
         File output = dir.resolve(outputPath).toFile();
-        output.getParentFile().mkdirs();
+        if(output.getParentFile() != null)
+            output.getParentFile().mkdirs();
 
         Template t = cfg.getTemplate(templatePath);
         t.process(mod, new FileWriter(output));
@@ -146,7 +148,8 @@ public class TemplateMakerFabric {
             fileStartCallback.accept(outputPath);
 
         File output = dir.resolve(outputPath).toFile();
-        output.getParentFile().mkdirs();
+        if(output.getParentFile() != null)
+            	output.getParentFile().mkdirs();
 
         FileWriter fw = new FileWriter(output);
         fw.append(gson.toJson(obj));
