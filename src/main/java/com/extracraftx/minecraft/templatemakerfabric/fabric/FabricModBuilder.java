@@ -111,7 +111,7 @@ public class FabricModBuilder{
             FabricMod mod = new FabricMod(mcVersion, modName, modId, modDescription, modVersion, author, homepage, sources, license, nameOnLicense, mainPackage, mainClass, mixin, fabricApi, apiVersion, yarnVersion, loomVersion, loaderVersion, mavenGroup, archiveName);
             return mod;
         }catch(IllegalArgumentException e){
-            throw new IllegalStateException(e);
+            throw new IllegalStateException(e.getMessage(), e);
         }
     }
 
