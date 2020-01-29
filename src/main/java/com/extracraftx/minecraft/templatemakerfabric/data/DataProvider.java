@@ -47,6 +47,7 @@ public class DataProvider {
     private ArrayList<YarnVersion> yarnVersions;
     private HashMap<String, ArrayList<YarnVersion>> filteredYarnVersions = new HashMap<>();
     private ArrayList<LoomVersion> loomVersions;
+    private HashMap<String, ArrayList<LoaderVersion>> filteredLoaderVersions = new HashMap<>();
     private ArrayList<LoaderVersion> loaderVersions;
 
     public ArrayList<MinecraftVersion> getMinecraftVersions() throws IOException{
@@ -129,15 +130,15 @@ public class DataProvider {
         return yarnVersions;
     }
 
-    public ArrayList<YarnVersion> getFilteredYarnVersions(String mcVersion) throws IOException{
-        if(filteredYarnVersions.containsKey(mcVersion))
-            return filteredYarnVersions.get(mcVersion);
+    public ArrayList<YarnVersion> getFilteredYarnVersions(MinecraftVersion mcVersion) throws IOException{
+        if(filteredYarnVersions.containsKey(mcVersion.name))
+            return filteredYarnVersions.get(mcVersion.name);
         if(yarnVersions == null)
             getYarnVersions();
         ArrayList<YarnVersion> filtered = yarnVersions.stream()
-                .filter(version->version.mcVersion.equals(mcVersion))
+                .filter(version->version.mcVersion.equals(mcVersion.name))
                 .collect(Collectors.toCollection(ArrayList::new));
-        filteredYarnVersions.put(mcVersion, filtered);
+        filteredYarnVersions.put(mcVersion.name, filtered);
         return filtered;
     }
 
@@ -174,6 +175,20 @@ public class DataProvider {
         }
         this.loaderVersions = loaderVersions;
         return loaderVersions;
+    }
+
+    public ArrayList<LoaderVersion> getFilteredLoaderVersions(LoomVersion loom) throws IOException{
+        if(filteredLoaderVersions.containsKey(loom.name))
+            return filteredLoaderVersions.get(loom.name);
+        if(loaderVersions == null)
+            getLoaderVersions();
+        if(loom.originalIndex >= 10)
+            return loaderVersions;
+        ArrayList<LoaderVersion> filtered = loaderVersions.stream()
+            .filter(version->version.build <= 170)
+            .collect(Collectors.toCollection(ArrayList::new));
+        filteredLoaderVersions.put(loom.name, filtered);
+        return filtered;
     }
 
     public License[] getSupportedLicenses(){
