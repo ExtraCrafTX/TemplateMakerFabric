@@ -11,6 +11,8 @@ It also allows filtering some of these by compatibility and can provide default 
 
 It also allows building a skeleton of a mod by providing information which can then be output to a given path.
 
+##### Documentation Coming Soon™
+
 ### GeneratorFabricMod
 This library is not intended to be user-facing.  
 *If you are wanting to simply create a skeleton mod as a user, take a look at [GeneratorFabricMod](https://github.com/ExtraCrafTX/GeneratorFabricMod).*
