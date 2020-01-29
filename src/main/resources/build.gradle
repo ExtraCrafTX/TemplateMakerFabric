@@ -21,7 +21,7 @@ minecraft {
 dependencies {
 	//to change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${r"${project.minecraft_version}"}"
-	mappings "net.fabricmc:yarn:${r"${project.yarn_mappings}"}<#if yarnVersion.hasV2Mappings && loomVersion.originalIndex >= 11>:v2</#if>"
+	mappings "net.fabricmc:yarn:${r"${project.yarn_mappings}"}<#if yarnVersion.hasV2Mappings && (loomVersion.originalIndex >= 11)>:v2</#if>"
 	mod${depType} "net.fabricmc:fabric-loader:${r"${project.loader_version}"}"
 <#if fabricApi>
 

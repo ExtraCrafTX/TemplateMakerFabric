@@ -156,6 +156,10 @@ public class DataProvider {
         return loomVersions;
     }
 
+    public int getDefaultLoomVersion(YarnVersion yarn){
+        return yarn.hasV2Mappings ? LOOM_DEFAULT : LOOM_OLD;
+    }
+
     public ArrayList<LoaderVersion> getLoaderVersions() throws IOException{
         if(loaderVersions != null)
             return loaderVersions;
