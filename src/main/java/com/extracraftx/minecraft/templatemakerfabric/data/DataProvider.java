@@ -24,6 +24,9 @@ import org.xml.sax.SAXException;
 
 public class DataProvider {
 
+    public static final int LOOM_DEFAULT = 11;
+    public static final int LOOM_OLD = 9;
+
     public static final License[] LICENSES = {
         new License("No License (Copyrighted)", "All-Rights-Reserved", true),
         new License("MIT", "MIT", true),
@@ -93,6 +96,19 @@ public class DataProvider {
         return sortedApiVersions;
     }
 
+    public int getDefaultFabricApiVersion(MinecraftVersion mcVersion) throws IOException {
+        if(sortedApiVersions == null)
+            getSortedFabricApiVersions();
+        int defaultApi = 0;
+        for (int i = 0; i < sortedApiVersions.size(); i++) {
+            if (sortedApiVersions.get(i).mcVersionIndex >= mcVersion.index) {
+                defaultApi = i;
+                break;
+            }
+        }
+        return defaultApi;
+    }
+
     public ArrayList<YarnVersion> getYarnVersions() throws IOException{
         if(yarnVersions != null)
             return yarnVersions;
@@ -132,7 +148,8 @@ public class DataProvider {
         NodeList loomVersionsData = loomData.getElementsByTagName("version");
         ArrayList<LoomVersion> loomVersions = new ArrayList<>(loomVersionsData.getLength());
         for(int i = 0; i < loomVersionsData.getLength(); i++){
-            LoomVersion version = new LoomVersion(loomVersionsData.item(loomVersionsData.getLength()-i-1).getTextContent(), i);
+            int originalIndex = loomVersionsData.getLength()-i-1;
+            LoomVersion version = new LoomVersion(loomVersionsData.item(originalIndex).getTextContent(), i, originalIndex);
             loomVersions.add(version);
         }
         this.loomVersions = loomVersions;
