@@ -70,7 +70,9 @@ public class DataProvider {
             JsonObject versionData = apiVersionsData.get(i).getAsJsonObject();
             String name = versionData.get("displayName").getAsString();
             String fileName = versionData.get("fileName").getAsString();
-            apiVersions.add(new FabricApiVersion(name, fileName));
+            try{
+                apiVersions.add(new FabricApiVersion(name, fileName));
+            }catch(IllegalArgumentException e){}
         }
         this.apiVersions = apiVersions;
         return apiVersions;
