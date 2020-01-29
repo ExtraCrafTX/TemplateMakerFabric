@@ -29,4 +29,13 @@ public class License{
     public boolean getRequiresName(){
         return requiresName;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof License){
+            License other = (License)obj;
+            return other.name.equals(name) && other.value.equals(value) && other.requiresName == requiresName;
+        }
+        return false;
+    }
 }
