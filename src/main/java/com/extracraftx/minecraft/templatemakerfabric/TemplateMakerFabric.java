@@ -1,28 +1,20 @@
 package com.extracraftx.minecraft.templatemakerfabric;
 
+import static com.extracraftx.minecraft.templatemakerfabric.util.Util.contains;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.function.Consumer;
 
 import com.extracraftx.minecraft.templatemakerfabric.data.DataProvider;
-import com.extracraftx.minecraft.templatemakerfabric.data.holders.FabricApiVersion;
-import com.extracraftx.minecraft.templatemakerfabric.data.holders.License;
-import com.extracraftx.minecraft.templatemakerfabric.data.holders.LoaderVersion;
-import com.extracraftx.minecraft.templatemakerfabric.data.holders.LoomVersion;
-import com.extracraftx.minecraft.templatemakerfabric.data.holders.MinecraftVersion;
-import com.extracraftx.minecraft.templatemakerfabric.data.holders.YarnVersion;
 import com.extracraftx.minecraft.templatemakerfabric.fabric.FabricMod;
+import com.extracraftx.minecraft.templatemakerfabric.schema.FabricModJsonSchema;
+import com.extracraftx.minecraft.templatemakerfabric.schema.MixinsJsonSchema;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.annotations.SerializedName;
 
 import freemarker.core.ParseException;
 import freemarker.template.Configuration;
@@ -31,8 +23,6 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
 import freemarker.template.TemplateNotFoundException;
-
-import static com.extracraftx.minecraft.templatemakerfabric.util.Util.*;
 
 public class TemplateMakerFabric {
 
@@ -86,7 +76,7 @@ public class TemplateMakerFabric {
 
     private void outputFabricModJson(FabricMod mod, Path dir, Consumer<String> fileStartCallback,
             Consumer<String> fileEndCallback) throws IOException {
-        FabricModJson obj = new FabricModJson();
+        FabricModJsonSchema obj = new FabricModJsonSchema();
         obj.id = mod.getModId();
         obj.version = "${version}";
         obj.name = mod.getModName();
@@ -115,7 +105,7 @@ public class TemplateMakerFabric {
 
     private void outputMixinsJson(FabricMod mod, Path dir, Consumer<String> fileStartCallback,
             Consumer<String> fileEndCallback) throws IOException {
-        MixinsJson obj = new MixinsJson();
+        MixinsJsonSchema obj = new MixinsJsonSchema();
         obj.pkg = String.join(".", mod.getMainPackage()) + ".mixin";
         
         outputJson(obj, dir, fileStartCallback, fileEndCallback, "src/main/resources/"+mod.getModId()+".mixins.json");
@@ -165,48 +155,6 @@ public class TemplateMakerFabric {
 
         if (fileEndCallback != null)
             fileEndCallback.accept(outputPath);
-    }
-
-    private static class FabricModJson {
-        int schemaVersion = 1;
-        String id;
-        String version;
-        String name;
-        String description;
-        List<String> authors = new ArrayList<>();
-        Contact contact = new Contact();
-        String license;
-        String icon;
-        String environment;
-        Entrypoints entrypoints = new Entrypoints();
-        List<String> mixins = new ArrayList<>();
-        HashMap<String, String> depends = new LinkedHashMap<>();
-    }
-
-    private static class Contact {
-        String sources;
-        String homepage;
-    }
-
-    private static class Entrypoints {
-        List<String> main = new ArrayList<>();
-        List<String> client = new ArrayList<>();
-        List<String> server = new ArrayList<>();
-    }
-
-    private static class MixinsJson {
-        boolean required = true;
-        @SerializedName("package")
-        String pkg;
-        String compatibilityLevel = "JAVA_8";
-        List<String> mixins = new ArrayList<>();
-        List<String> client = new ArrayList<>();
-        List<String> server = new ArrayList<>();
-        Injectors injectors = new Injectors();
-    }
-
-    private static class Injectors {
-        int defaultRequire = 1;
     }
 
 }
