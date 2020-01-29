@@ -3,6 +3,7 @@ package com.extracraftx.minecraft.templatemakerfabric;
 import static com.extracraftx.minecraft.templatemakerfabric.util.Util.contains;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -39,14 +40,12 @@ public class TemplateMakerFabric {
         cfg.setFallbackOnNullLoopVariable(false);
     }
 
-    public void outputMod(FabricMod mod, Path dir) throws TemplateNotFoundException, MalformedTemplateNameException,
-            ParseException, IOException, TemplateException {
+    public void outputMod(FabricMod mod, Path dir) throws FileNotFoundException, IOException, Exception {
         outputMod(mod, dir, null, null);
     }
 
     public void outputMod(FabricMod mod, Path dir, Consumer<String> fileStartCallback, Consumer<String> fileEndCallback)
-            throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException,
-            TemplateException {
+            throws FileNotFoundException, IOException, Exception {
         copyFile(mod, dir, fileStartCallback, fileEndCallback, ".gitignore.template", ".gitignore");
         copyFile(mod, dir, fileStartCallback, fileEndCallback, "settings.gradle", "settings.gradle");
 
