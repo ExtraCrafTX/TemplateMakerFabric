@@ -47,7 +47,7 @@ public class TemplateMakerFabric {
     public void outputMod(FabricMod mod, Path dir, Consumer<String> fileStartCallback, Consumer<String> fileEndCallback)
             throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException,
             TemplateException {
-        copyFile(mod, dir, fileStartCallback, fileEndCallback, ".gitignore", ".gitignore");
+        copyFile(mod, dir, fileStartCallback, fileEndCallback, ".gitignore.template", ".gitignore");
         copyFile(mod, dir, fileStartCallback, fileEndCallback, "settings.gradle", "settings.gradle");
 
         String gradleBase = "gradle" + mod.getLoomVersion().gradle + "/";
