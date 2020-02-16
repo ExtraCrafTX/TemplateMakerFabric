@@ -66,6 +66,28 @@ public class DataProvider {
         return mcVersions;
     }
 
+    public MinecraftVersion getLatestMinecraftVersion(boolean stableOnly) throws IOException{
+        if(mcVersions == null)
+            getMinecraftVersions();
+        if(stableOnly){
+            for(MinecraftVersion mcVersion : mcVersions){
+                if(mcVersion.isStable())
+                    return mcVersion;
+            }
+        }
+        return mcVersions.get(0);
+    }
+
+    public MinecraftVersion getMinecraftVersion(String versionName) throws IOException{
+        if(mcVersions == null)
+            getMinecraftVersions();
+        for(MinecraftVersion mcVersion : mcVersions){
+            if(mcVersion.name.equals(versionName))
+                return mcVersion;
+        }
+        return null;
+    }
+
     public ArrayList<NormalizedMinecraftVersion> getNormalizedMinecraftVersions() throws IOException{
         if(normalizedMcVersions != null)
             return normalizedMcVersions;
@@ -77,6 +99,18 @@ public class DataProvider {
         }
         this.normalizedMcVersions = normalizedMcVersions;
         return normalizedMcVersions;
+    }
+
+    public NormalizedMinecraftVersion getNormalizedMinecraftVersion(MinecraftVersion mcVersion) throws IOException{
+        if(normalizedMcVersions != null)
+            return normalizedMcVersions.get(mcVersion.index);
+        if(mcVersions == null)
+            getMinecraftVersions();
+        return new NormalizedMinecraftVersion(mcVersion, mcVersions);
+    }
+
+    public NormalizedMinecraftVersion getNormalizedMinecraftVersion(String versionName) throws IOException{
+        return getNormalizedMinecraftVersion(getMinecraftVersion(versionName));
     }
 
     public ArrayList<FabricApiVersion> getFabricApiVersions() throws IOException{
