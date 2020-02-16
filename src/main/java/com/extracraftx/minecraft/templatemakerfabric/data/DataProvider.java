@@ -51,6 +51,9 @@ public class DataProvider {
     private HashMap<String, ArrayList<LoaderVersion>> filteredLoaderVersions = new HashMap<>();
     private ArrayList<LoaderVersion> loaderVersions;
 
+    private LoomVersion loom_old;
+    private LoomVersion loom_default;
+
     public ArrayList<MinecraftVersion> getMinecraftVersions() throws IOException{
         if(mcVersions != null)
             return mcVersions;
@@ -205,8 +208,27 @@ public class DataProvider {
         return loomVersions;
     }
 
-    public int getDefaultLoomVersion(YarnVersion yarn){
-        return yarn.hasV2Mappings ? LOOM_DEFAULT : LOOM_OLD;
+    public LoomVersion getDefaultLoomVersion(YarnVersion yarn)
+            throws IOException, SAXException, ParserConfigurationException {
+        if(loomVersions == null)
+            getLoomVersions();
+        if(loom_old == null){
+            for(LoomVersion loomVersion : loomVersions){
+                if(loomVersion.originalIndex == LOOM_OLD){
+                    loom_old = loomVersion;
+                    break;
+                }
+            }
+        }
+        if(loom_default == null){
+            for(LoomVersion loomVersion : loomVersions){
+                if(loomVersion.originalIndex == LOOM_DEFAULT){
+                    loom_default = loomVersion;
+                    break;
+                }
+            }
+        }
+        return yarn.hasV2Mappings ? loom_default : loom_old;
     }
 
     public ArrayList<LoaderVersion> getLoaderVersions() throws IOException{
