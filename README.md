@@ -11,6 +11,17 @@ It also allows filtering some of these by compatibility and can provide default 
 
 It also allows building a skeleton of a mod by providing information which can then be output to a given path.
 
+### Maven
+```gradle
+repositories{
+    maven { url "https://maven.extracraftx.com" }
+}
+...
+dependencies{
+    implementation "com.extracraftx.minecraft:TemplateMakerFabric:{VERSION}"
+}
+```
+
 ##### Documentation Coming Soon™
 
 ### GeneratorFabricMod
