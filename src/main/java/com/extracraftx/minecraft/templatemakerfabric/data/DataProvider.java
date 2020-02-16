@@ -42,6 +42,7 @@ public class DataProvider {
     };
 
     private ArrayList<MinecraftVersion> mcVersions;
+    private ArrayList<NormalizedMinecraftVersion> normalizedMcVersions;
     private ArrayList<FabricApiVersion> apiVersions;
     private ArrayList<IndexedFabricApiVersion> sortedApiVersions;
     private ArrayList<YarnVersion> yarnVersions;
@@ -63,6 +64,19 @@ public class DataProvider {
         }
         this.mcVersions = mcVersions;
         return mcVersions;
+    }
+
+    public ArrayList<NormalizedMinecraftVersion> getNormalizedMinecraftVersions() throws IOException{
+        if(normalizedMcVersions != null)
+            return normalizedMcVersions;
+        if(mcVersions == null)
+            getMinecraftVersions();
+        ArrayList<NormalizedMinecraftVersion> normalizedMcVersions = new ArrayList<>(mcVersions.size());
+        for(MinecraftVersion mcVersion : mcVersions){
+            normalizedMcVersions.add(new NormalizedMinecraftVersion(mcVersion, mcVersions));
+        }
+        this.normalizedMcVersions = normalizedMcVersions;
+        return normalizedMcVersions;
     }
 
     public ArrayList<FabricApiVersion> getFabricApiVersions() throws IOException{
