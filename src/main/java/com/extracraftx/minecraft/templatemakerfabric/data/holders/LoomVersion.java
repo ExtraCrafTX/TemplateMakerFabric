@@ -10,7 +10,7 @@ public class LoomVersion{
         this.name = name;
         this.index = index;
         this.originalIndex = originalIndex;
-        this.gradle = index <= 9 ? 4 : 5;
+        this.gradle = originalIndex <= 9 ? 4 : 5;
     }
 
     @Override
