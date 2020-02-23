@@ -8,7 +8,7 @@ sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
 archivesBaseName = 'TemplateMakerFabric'
-version = '0.2.1'
+version = '0.2.2'
 group = 'com.extracraftx.minecraft'
 
 repositories {
