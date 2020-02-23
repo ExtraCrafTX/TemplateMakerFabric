@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.attribute.PosixFilePermissions;
 import java.util.function.Consumer;
 
 import com.extracraftx.minecraft.templatemakerfabric.data.DataProvider;
@@ -50,7 +51,7 @@ public class TemplateMakerFabric {
         copyFile(mod, dir, fileStartCallback, fileEndCallback, "settings.gradle", "settings.gradle");
 
         String gradleBase = "gradle" + mod.getLoomVersion().gradle + "/";
-        copyFile(mod, dir, fileStartCallback, fileEndCallback, gradleBase + "gradlew", "gradlew");
+        copyFileExecutable(mod, dir, fileStartCallback, fileEndCallback, gradleBase + "gradlew", "gradlew");
         copyFile(mod, dir, fileStartCallback, fileEndCallback, gradleBase + "gradlew.bat", "gradlew.bat");
         copyFile(mod, dir, fileStartCallback, fileEndCallback, gradleBase + "gradle-wrapper.jar",
                 "gradle/wrapper/gradle-wrapper.jar");
@@ -68,7 +69,7 @@ public class TemplateMakerFabric {
         outputFabricModJson(mod, dir, fileStartCallback, fileEndCallback);
         if(mod.isMixin())
             outputMixinsJson(mod, dir, fileStartCallback, fileEndCallback);
-        
+
         if(contains(DataProvider.LICENSES, mod.getLicense()))
             outputFile(mod, dir, fileStartCallback, fileEndCallback, "licenses/"+mod.getLicense().value+".txt", "LICENSE");
     }
@@ -106,7 +107,7 @@ public class TemplateMakerFabric {
             Consumer<String> fileEndCallback) throws IOException {
         MixinsJsonSchema obj = new MixinsJsonSchema();
         obj.pkg = String.join(".", mod.getMainPackage()) + ".mixin";
-        
+
         outputJson(obj, dir, fileStartCallback, fileEndCallback, "src/main/resources/"+mod.getModId()+".mixins.json");
     }
 
@@ -123,6 +124,14 @@ public class TemplateMakerFabric {
 
         if (fileEndCallback != null)
             fileEndCallback.accept(outputPath);
+    }
+
+    private void copyFileExecutable(FabricMod mod, Path dir, Consumer<String> fileStartCallback,
+            Consumer<String> fileEndCallback, String filePath, String outputPath) throws IOException {
+        copyFile(mod, dir, fileStartCallback, fileEndCallback, filePath, outputPath);
+        try{
+            Files.setPosixFilePermissions(dir.resolve(outputPath), PosixFilePermissions.fromString("rwxr-xr-x"));
+        }catch(UnsupportedOperationException e){}
     }
 
     private void outputFile(FabricMod mod, Path dir, Consumer<String> fileStartCallback,
