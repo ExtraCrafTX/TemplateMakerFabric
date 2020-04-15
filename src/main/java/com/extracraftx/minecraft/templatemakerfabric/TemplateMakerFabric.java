@@ -86,7 +86,7 @@ public class TemplateMakerFabric {
             obj.contact.sources = mod.getSources().toString();
         }
         if (mod.getHomepage() != null) {
-            obj.contact.homepage = mod.getSources().toString();
+            obj.contact.homepage = mod.getHomepage().toString();
         }
         obj.license = mod.getLicense().value;
         obj.icon = "assets/" + mod.getModId() + "/icon.png";
