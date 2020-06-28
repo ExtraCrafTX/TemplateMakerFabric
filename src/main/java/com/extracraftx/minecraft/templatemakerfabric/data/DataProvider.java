@@ -24,7 +24,7 @@ import org.xml.sax.SAXException;
 
 public class DataProvider {
 
-    public static final int LOOM_DEFAULT = 11;
+    public static final int LOOM_DEFAULT = 22;
     public static final int LOOM_OLD = 9;
 
     public static final License[] LICENSES = {

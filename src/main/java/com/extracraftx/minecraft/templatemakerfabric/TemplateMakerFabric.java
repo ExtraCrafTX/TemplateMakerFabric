@@ -95,7 +95,7 @@ public class TemplateMakerFabric {
         if (mod.isMixin()) {
             obj.mixins.add(mod.getModId() + ".mixins.json");
         }
-        obj.depends.put("fabricloader", ">=0.4.0");
+        obj.depends.put("fabricloader", ">="+mod.getLoaderVersion().name.split("\\+")[0]);
         if (mod.isFabricApi()) {
             obj.depends.put("fabric", "*");
         }
