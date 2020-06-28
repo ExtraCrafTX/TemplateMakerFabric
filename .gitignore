@@ -10,3 +10,5 @@ build
 
 # Ignore run binaries
 bin
+
+.DS_Store
