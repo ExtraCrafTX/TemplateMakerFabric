@@ -8,8 +8,11 @@ public class NormalizedMinecraftVersion extends MinecraftVersion{
 
     public static final Pattern SNAPSHOT_PATTERN = Pattern.compile("(\\d+)w(\\d+)(.+)");
     public static final Pattern PRE_PATTERN = Pattern.compile("((\\d+)\\.(\\d+)(?:\\.(\\d+))?)(?:-pre| pre-release )(\\d+)", Pattern.CASE_INSENSITIVE);
+    public static final Pattern RC_PATTERN = Pattern.compile("((\\d+)\\.(\\d+)(?:\\.(\\d+))?)(?:-rc)(\\d+)", Pattern.CASE_INSENSITIVE);
     public static final Pattern RELEASE_PATTERN = Pattern.compile("(\\d+)\\.(\\d+)(?:\\.(\\d+))?");
     public static final Pattern CONTAINS_RELEASE_PATTERN = Pattern.compile("((\\d+)\\.(\\d+))([-\\s\\.].+)?");
+
+    public static final Pattern NORMALIZED_RC_PATTERN = Pattern.compile("((\\d+)\\.(\\d+)(?:\\.(\\d+))?)(?:-rc)\\.(\\d+)", Pattern.CASE_INSENSITIVE);
 
     public final String normalized;
 
@@ -19,6 +22,15 @@ public class NormalizedMinecraftVersion extends MinecraftVersion{
         Matcher matcher = RELEASE_PATTERN.matcher(this.name);
         if(matcher.matches()){
             normalized = this.name;
+            return;
+        }
+        matcher = RC_PATTERN.matcher(this.name);
+        if(matcher.matches()){
+            int rc = getPreviousRC(mcVersion, mcVersions) + 1;
+            if(rc == -1){
+                rc = Integer.parseInt(matcher.group(5));
+            }
+            normalized = matcher.group(1) + "-rc." + rc;
             return;
         }
         matcher = PRE_PATTERN.matcher(this.name);
@@ -72,6 +84,28 @@ public class NormalizedMinecraftVersion extends MinecraftVersion{
             }
         }
         return null;
+    }
+
+    private static int getPreviousRC(MinecraftVersion mcVersion, List<MinecraftVersion> mcVersions){
+        for(int i = mcVersion.index + 1; i < mcVersions.size(); i++){
+            MinecraftVersion testing = mcVersions.get(i);
+            Matcher matcher = RELEASE_PATTERN.matcher(testing.name);
+            if(matcher.matches()){
+                return -1;
+            }
+            matcher = RC_PATTERN.matcher(testing.name);
+            if(!matcher.matches()){
+                matcher = PRE_PATTERN.matcher(testing.name);
+            }
+            if(matcher.matches()){
+                NormalizedMinecraftVersion normalized = new NormalizedMinecraftVersion(testing, mcVersions);
+                Matcher normalizedMatcher = NORMALIZED_RC_PATTERN.matcher(normalized.normalized);
+                if(normalizedMatcher.matches()){
+                    return Integer.parseInt(matcher.group(5));
+                }
+            }
+        }
+        return -1;
     }
 
 }
