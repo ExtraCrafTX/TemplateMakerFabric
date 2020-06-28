@@ -24,7 +24,6 @@ import org.xml.sax.SAXException;
 
 public class DataProvider {
 
-    public static final int LOOM_DEFAULT = 22;
     public static final int LOOM_OLD = 9;
 
     public static final License[] LICENSES = {
@@ -222,7 +221,7 @@ public class DataProvider {
         }
         if(loom_default == null){
             for(LoomVersion loomVersion : loomVersions){
-                if(loomVersion.originalIndex == LOOM_DEFAULT){
+                if(loomVersion.name.endsWith("SNAPSHOT")){
                     loom_default = loomVersion;
                     break;
                 }
