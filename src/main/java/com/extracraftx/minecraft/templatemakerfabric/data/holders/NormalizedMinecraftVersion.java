@@ -10,7 +10,7 @@ public class NormalizedMinecraftVersion extends MinecraftVersion{
     public static final Pattern PRE_PATTERN = Pattern.compile("((\\d+)\\.(\\d+)(?:\\.(\\d+))?)(?:-pre| pre-release )(\\d+)", Pattern.CASE_INSENSITIVE);
     public static final Pattern RC_PATTERN = Pattern.compile("((\\d+)\\.(\\d+)(?:\\.(\\d+))?)(?:-rc)(\\d+)", Pattern.CASE_INSENSITIVE);
     public static final Pattern RELEASE_PATTERN = Pattern.compile("(\\d+)\\.(\\d+)(?:\\.(\\d+))?");
-    public static final Pattern CONTAINS_RELEASE_PATTERN = Pattern.compile("((\\d+)\\.(\\d+))([-\\s\\.].+)?");
+    public static final Pattern CONTAINS_RELEASE_PATTERN = Pattern.compile("((\\d+)\\.(\\d+)(?:\\.(\\d+))?)(?:[-\\s\\.](.+))?");
 
     public static final Pattern NORMALIZED_RC_PATTERN = Pattern.compile("((\\d+)\\.(\\d+)(?:\\.(\\d+))?)(?:-rc)\\.(\\d+)", Pattern.CASE_INSENSITIVE);
 

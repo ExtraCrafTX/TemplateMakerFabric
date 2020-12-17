@@ -5,10 +5,10 @@ import java.util.regex.Pattern;
 public class Util{
 
     public static final String[] KEYWORDS = {"abstract", "assert", "boolean", "break", "byte", "case", "catch", "char", "class", "const", "default", "do", "double", "else", "enum", "extends", "false", "final", "finally", "float", "for", "goto", "if", "implements", "import", "instanceof", "int", "interface", "long", "native", "new", "null", "package", "private", "protected", "public", "return", "short", "static", "strictfp", "super", "switch", "synchronized", "this", "throw", "throws", "transient", "true", "try", "void", "volatile", "while", "continue"};
-    public static final Pattern PACKAGE_REGEX = Pattern.compile("^([A-Za-z$_][A-Za-z0-9$_]*\\.)*[A-Za-z$_][A-Za-z0-9$_]*$");
-    public static final Pattern IDENT_REGEX = Pattern.compile("^[A-Za-z$_][A-Za-z0-9$_]*$");
+    public static final Pattern PACKAGE_REGEX = Pattern.compile("([A-Za-z$_][A-Za-z0-9$_]*\\.)*[A-Za-z$_][A-Za-z0-9$_]*");
+    public static final Pattern IDENT_REGEX = Pattern.compile("[A-Za-z$_][A-Za-z0-9$_]*");
 
-    public static final Pattern SEMVER_REGEX = Pattern.compile("^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$");
+    public static final Pattern SEMVER_REGEX = Pattern.compile("(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?");
 
     public static <T> T ensureExists(T object, String name){
         if(object == null)

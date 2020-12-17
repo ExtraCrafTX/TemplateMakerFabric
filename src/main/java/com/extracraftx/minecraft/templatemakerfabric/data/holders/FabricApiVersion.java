@@ -3,6 +3,8 @@ package com.extracraftx.minecraft.templatemakerfabric.data.holders;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.extracraftx.minecraft.templatemakerfabric.util.Util;
+
 public class FabricApiVersion{
     private static Pattern mcVersionPattern = Pattern.compile("\\[(([^/\\]]+)(?:/[^\\]]+)?)\\]");
     private static Pattern buildPattern = Pattern.compile("build (\\d+)");
@@ -12,6 +14,7 @@ public class FabricApiVersion{
     public final String name;
     public final String displayMcVersion;
     public final String mcVersion;
+    public final SemVer semVer;
     public final int build;
     public final String maven;
     public final String mavenLocation;
@@ -26,11 +29,17 @@ public class FabricApiVersion{
         }else{
             throw new IllegalArgumentException("The name '" + name + "' doesn't seem to have the Minecraft version");
         }
+        Matcher verMatcher = Util.SEMVER_REGEX.matcher(name);
+        if(verMatcher.find(name.indexOf("]"))){
+            this.semVer = new SemVer(verMatcher.group(1), verMatcher.group(2), verMatcher.group(3), verMatcher.group(4), verMatcher.group(5));
+        }else{
+            throw new IllegalArgumentException("The name '" + name + "' doesn't seem to have a version conforming to SemVer");
+        }
         Matcher buildMatcher = buildPattern.matcher(name);
         if(buildMatcher.find()){
             this.build = Integer.parseInt(buildMatcher.group(1));
         }else{
-            throw new IllegalArgumentException("The name '" + name + "' doesn't seem to have the build number");
+            this.build = Integer.MAX_VALUE;
         }
         Matcher newMatcher = newFabricPattern.matcher(fileName);
         if(newMatcher.matches()){
@@ -53,6 +62,7 @@ public class FabricApiVersion{
         name = apiVersion.name;
         displayMcVersion = apiVersion.displayMcVersion;
         mcVersion = apiVersion.mcVersion;
+        semVer = apiVersion.semVer;
         build = apiVersion.build;
         maven = apiVersion.maven;
         mavenLocation = apiVersion.mavenLocation;
@@ -71,6 +81,13 @@ public class FabricApiVersion{
      */
     public String getMcVersion() {
         return mcVersion;
+    }
+
+    /**
+     * @return the SemVer
+     */
+    public SemVer getSemVer(){
+        return semVer;
     }
 
     /**

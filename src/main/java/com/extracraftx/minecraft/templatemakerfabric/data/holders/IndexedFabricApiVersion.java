@@ -3,7 +3,7 @@ package com.extracraftx.minecraft.templatemakerfabric.data.holders;
 import java.util.Collection;
 
 public class IndexedFabricApiVersion extends FabricApiVersion implements Comparable<IndexedFabricApiVersion>{
-    
+
     public final int mcVersionIndex;
 
     public IndexedFabricApiVersion(String name, String fileName, Collection<MinecraftVersion> mcVersions){
@@ -28,7 +28,11 @@ public class IndexedFabricApiVersion extends FabricApiVersion implements Compara
     @Override
     public int compareTo(IndexedFabricApiVersion version) {
         if(mcVersionIndex == version.mcVersionIndex){
-            return version.build - build;
+            int verCompare = version.semVer.compareTo(semVer);
+            if(verCompare == 0){
+                return version.build - build;
+            }
+            return verCompare;
         }
         return mcVersionIndex - version.mcVersionIndex;
     }
