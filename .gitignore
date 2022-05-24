@@ -8,6 +8,9 @@ build
 .vscode
 .settings
 
+# Ignore intellij files
+.idea
+
 # Ignore run binaries
 bin
 
