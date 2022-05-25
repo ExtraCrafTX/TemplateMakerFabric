@@ -118,12 +118,12 @@ public class DataProvider {
     public ArrayList<FabricApiVersion> getFabricApiVersions() throws IOException{
         if(apiVersions != null)
             return apiVersions;
-        JsonArray apiVersionsData = jsonFromUrl("https://addons-ecs.forgesvc.net/api/v2/addon/306612/files").getAsJsonArray();
+        JsonArray apiVersionsData = jsonFromUrl("https://api.modrinth.com/v2/project/P7dR8mSH/version").getAsJsonArray();
         ArrayList<FabricApiVersion> apiVersions = new ArrayList<>();
         for(int i = 0; i < apiVersionsData.size(); i++){
             JsonObject versionData = apiVersionsData.get(i).getAsJsonObject();
-            String name = versionData.get("displayName").getAsString();
-            String fileName = versionData.get("fileName").getAsString();
+            String name = versionData.get("name").getAsString();
+            String fileName = versionData.get("files").getAsJsonArray().get(0).getAsJsonObject().get("filename").getAsString();
             try{
                 apiVersions.add(new FabricApiVersion(name, fileName));
             }catch(IllegalArgumentException e){}

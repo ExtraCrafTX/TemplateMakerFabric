@@ -8,7 +8,7 @@ sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
 archivesBaseName = 'TemplateMakerFabric'
-version = '0.4.0'
+version = '0.4.1'
 group = 'com.extracraftx.minecraft'
 
 repositories {
@@ -40,10 +40,10 @@ publishing{
     repositories{
         mavenLocal()
 		maven{
-			url = extracraftxMaven
+			url = System.getenv().getOrDefault('extracraftxMaven', "NO_MAVEN")
 			credentials {
-				username = extracraftxMavenUsername
-				password = extracraftxMavenPassword
+				username = System.getenv().getOrDefault('extracraftxMavenUsername', "NO_USERNAME")
+				password = System.getenv().getOrDefault('extracraftxMavenPassword', "NO_PASSWORD")
 			}
 		}
     }
